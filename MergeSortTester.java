@@ -4,6 +4,7 @@
   <INSERT YOUR DISTILLATION OF ALGO HERE>
   BIG-OH CLASSIFICATION OF ALGORITHM:
   <INSERT YOUR EXECUTION TIME CATEGORIZATION OF MERGESORT HERE>
+nlogn
   Mean execution times for dataset of size n:
   Batch size: <# of times each dataset size was run>
   n=1       time: 
@@ -28,10 +29,13 @@ public class MergeSortTester
    
     public static void main( String[] args ) 
     {
-	System.out.println("test");
-	int[] a = new int[1000000];
-	int[] b = new int[10000000];
-	int[] c = new int[100000000];
+	long atot =0;
+	long btot =0;
+	long ctot =0;
+	int[] a = new int[1024];
+	int[] b = new int[2048];
+	int[] c = new int[4096];
+	
 	for (int i = 0; i < a.length; i++){
 	    int x = (int)(Math.random()  * 100);
 	    a[i] = x;
@@ -44,19 +48,27 @@ public class MergeSortTester
 	    int x = (int)(Math.random()  * 100);
 	    c[i] = x;
 	}
+	for (int k = 0; k < 1000000; k ++){
 	long start = System.currentTimeMillis();
 	MergeSort.sort(a);
 	long end = System.currentTimeMillis();
-	System.out.println(" 10 took" +( end- start) + "seconds!");
+
+	atot += (end - start);
+
         start = System.currentTimeMillis();
 	MergeSort.sort(b);
 	end = System.currentTimeMillis();
-	System.out.println(" 100 took" +( end- start) + "seconds!");
+
+	 btot += (end-start);
 	start = System.currentTimeMillis();
 	MergeSort.sort(c);
 	end = System.currentTimeMillis();
-	System.out.println(" 1000 took" +( end- start) + "seconds!");
-
+	ctot += (end-start);
+	}
+    
+	System.out.println("1 took " +(long) (atot/100.0) + " miliseconds");
+	System.out.println("2^17 took " + (long)(btot/100.0) + " miliseconds");
+	System.out.println("2^18 took " +(long) (ctot/100.0) + " miliseconds");
 
     }//end main
 
